@@ -11,7 +11,7 @@ class MainScene: CCNode {
     
     func didLoadFromCCB() {
         
-        //multipleTouchEnabled = true
+        multipleTouchEnabled = true
         userInteractionEnabled = true
     }
     

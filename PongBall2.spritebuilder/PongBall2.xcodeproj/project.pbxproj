@@ -43,8 +43,6 @@
 		7A97910819E62F84001FFC4D /* libcocos2dAndroid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A97910019E62E40001FFC4D /* libcocos2dAndroid.a */; };
 		7A97911719E631C6001FFC4D /* libcocos2d-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A97910419E62E40001FFC4D /* libcocos2d-mac.a */; };
 		7A97911819E631CD001FFC4D /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9790FE19E62E40001FFC4D /* libcocos2d.a */; };
-		8364D2901B559CE2006F454C /* RightPaddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8364D28F1B559CE2006F454C /* RightPaddle.swift */; };
-		8364D2961B559CEB006F454C /* LeftPaddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8364D2951B559CEB006F454C /* LeftPaddle.swift */; };
 		8364D2981B559D10006F454C /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8364D2971B559D10006F454C /* Ball.swift */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
 		927F61A5196C771E000F43EF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3517B978D7009739AE /* OpenAL.framework */; };
@@ -174,8 +172,6 @@
 		7AFCD5DB19E9BD9F00BCCCDA /* cocos2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocos2d.h; path = "Source/libs/cocos2d-iphone/cocos2d/cocos2d.h"; sourceTree = "<group>"; };
 		7AFCD5DD19E9BDC200BCCCDA /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Source/Bridging-Header.h"; sourceTree = "<group>"; };
 		7BF6AF9F1A425F9800FFF9BA /* JavaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaFoundation.framework; path = "../../../../../../../Library/SBAndroid/Application Support/Developer/Shared/Xcode/Platforms/Android.platform/Developer/SDKs/SBAndroid.sdk/System/Library/Frameworks/JavaFoundation.framework"; sourceTree = "<group>"; };
-		8364D28F1B559CE2006F454C /* RightPaddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightPaddle.swift; sourceTree = "<group>"; };
-		8364D2951B559CEB006F454C /* LeftPaddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftPaddle.swift; sourceTree = "<group>"; };
 		8364D2971B559D10006F454C /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		927F61BF196C771E000F43EF /* PongBall2 Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PongBall2 Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -442,8 +438,6 @@
 			children = (
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				7A046D7519E84C36004C4763 /* MainScene.swift */,
-				8364D28F1B559CE2006F454C /* RightPaddle.swift */,
-				8364D2951B559CEB006F454C /* LeftPaddle.swift */,
 				8364D2971B559D10006F454C /* Ball.swift */,
 				D352B48019EC608A00829775 /* MetalShaders */,
 			);
@@ -822,11 +816,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8364D2981B559D10006F454C /* Ball.swift in Sources */,
-				8364D2901B559CE2006F454C /* RightPaddle.swift in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				7A046D7919E84ED5004C4763 /* MainScene.swift in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
-				8364D2961B559CEB006F454C /* LeftPaddle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
