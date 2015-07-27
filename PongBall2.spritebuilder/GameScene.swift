@@ -19,7 +19,7 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     var width = CCDirector.sharedDirector().viewSize().width
     var gameOver: Bool = false
     var ballSpeed = 1
-    
+    var coinArray = [Coin2]()
     
     
     func didLoadFromCCB() {
@@ -29,9 +29,13 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         
         self.animationManager.runAnimationsForSequenceNamed("Countdown")
         
+        println(width)
+        
         delay(3) {
             self.ballPush()
         }
+        
+        schedule("spawnCoin", interval: 0.1)
         
     }
     
@@ -58,6 +62,17 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         
     }
     
+    func spawnCoin() {
+        var spawnX = ((((arc4random() % 17) + 1) * 20) + 104)
+        var spawnY = ((((arc4random() % 10) + 1) * 25) + 25)
+        var coin = CCBReader.load("Coin2") as! Coin2
+        coin.position = ccp(CGFloat(spawnX), CGFloat(spawnY))
+        coin.scale = Float(0.2)
+        coinArray.append(coin)
+        addChild(coin)
+        println(coin.position)
+    }
+    
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, ball nodeA: CCNode!, paddle nodeB: CCNode!) -> ObjCBool {
         
         if ball.physicsBody.elasticity < 1.1 && ball.physicsBody.velocity.x < 950 && ball.physicsBody.velocity.x > -950 {
@@ -71,22 +86,30 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         return true
     }
     
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, Coin2 nodeA: CCNode!, ball nodeB: CCNode!) -> Bool {
+        
+        
+        return true
+    }
+    
     func restart () {
         let mainScene = CCBReader.loadAsScene("MainScene")
         CCDirector.sharedDirector().replaceScene(mainScene)
     }
     
+    func GameOver() {
+        println("GameOver")
+        restartButton.visible = true
+        gameOver = true
+    }
+    
     override func update(delta: CCTime) {
         
-        if ball.position.x > width && gameOver == false {
-            println("GameOver")
-            restartButton.visible = true
-            gameOver = true
+        if ball.position.x > 1 && gameOver == false {
+            GameOver()
         }
         else if ball.position.x < 0 && gameOver == false {
-            println("GameOver")
-            restartButton.visible = true
-            gameOver = true
+            GameOver()
         }
         
         let velocityX = clampf(Float(ball.physicsBody.velocity.x), -Float(CGFloat.max),950)
