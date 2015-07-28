@@ -18,8 +18,6 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     
     var width = CCDirector.sharedDirector().viewSize().width
     var gameOver: Bool = false
-    var ballSpeed = 1
-    var coinArray = [Coin2]()
     
     
     func didLoadFromCCB() {
@@ -31,11 +29,10 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         
         println(width)
         
-        delay(3) {
+        delay(3) { // always use "self." when using delay
             self.ballPush()
+            self.schedule("spawnCoin", interval: 1)
         }
-        
-        schedule("spawnCoin", interval: 0.1)
         
     }
     
@@ -65,12 +62,11 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     func spawnCoin() {
         var spawnX = ((((arc4random() % 17) + 1) * 20) + 104)
         var spawnY = ((((arc4random() % 10) + 1) * 25) + 25)
-        var coin = CCBReader.load("Coin2") as! Coin2
+        var coin = CCBReader.load("Coin") as! Coin
         coin.position = ccp(CGFloat(spawnX), CGFloat(spawnY))
         coin.scale = Float(0.2)
-        coinArray.append(coin)
-        addChild(coin)
-        println(coin.position)
+        gamePhysicsNode.addChild(coin)
+//        println(coin.position)
     }
     
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, ball nodeA: CCNode!, paddle nodeB: CCNode!) -> ObjCBool {
@@ -81,15 +77,16 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
             ball.physicsBody.elasticity -= 0.1
         }
         
-        println(ball.physicsBody.velocity)
+//        println(ball.physicsBody.velocity)
         
         return true
     }
     
-    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, Coin2 nodeA: CCNode!, ball nodeB: CCNode!) -> Bool {
+    func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, coin: CCNode!, ball: CCNode!) -> ObjCBool {
         
+        coin.removeFromParent()
         
-        return true
+        return false
     }
     
     func restart () {
@@ -129,8 +126,6 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         }
         
     }
-    
-    
     
     override func touchMoved(touch: CCTouch!, withEvent event: CCTouchEvent!) {
         var touchY = touch.locationInNode(CCPhysicsNode()!).y

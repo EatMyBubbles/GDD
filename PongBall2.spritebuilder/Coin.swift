@@ -8,6 +8,7 @@
 
 import Foundation
 
-class Coin2: CCSprite {
+class Coin: CCSprite {
+    
     
 }
