@@ -16,6 +16,7 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     weak var gamePhysicsNode: CCPhysicsNode!
     weak var restartButton: CCButton!
     weak var scoreLabel: CCLabelTTF!
+    weak var scoreLabel2: CCLabelTTF!
     
     var width = CCDirector.sharedDirector().viewSize().width
     var gameOver: Bool = false
@@ -23,6 +24,7 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     var score: Int = 0 {
         didSet {
             scoreLabel.string = "\(score)"
+            scoreLabel2.string = "\(score)"
         }
     }
     
@@ -36,16 +38,15 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         
         println(width)
         
-        delay(3) { // always use "self." when using delay
-            self.ballPush()
-            self.schedule("spawnCoin", interval: 2.5)
-        }
+//        delay(3) { // always use "self." when using delay
+//            self.schedule("spawnCoin", interval: 2.5)
+//        }
         
     }
     
-    func delay(delay:Double, closure:() ->()) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
-    }
+//    func delay(delay:Double, closure:() ->()) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+//    }
     
     func ballPush() {                                                   //give ball initial velocity
         var ballX = CGFloat(arc4random() % 2)
@@ -79,6 +80,10 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         }
     }
     
+    func spawnCoinInterval() {
+        schedule("spawnCoin", interval: 2.5)
+    }
+    
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, ball nodeA: CCNode!, paddle nodeB: CCNode!) -> ObjCBool {
         
         if ball.physicsBody.elasticity < 1.1 && ball.physicsBody.velocity.x < 950 && ball.physicsBody.velocity.x > -950 {
@@ -101,19 +106,20 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         return false
     }
     
-//    func restart () {
-//        let mainScene = CCBReader.loadAsScene("MainScene")
-//        CCDirector.sharedDirector().replaceScene(mainScene)
-//    }
-    
     func GameOver() {
         println("GameOver")
-//        restartButton.visible = true
         gameOver = true
         
-        var gameOverScene = CCBReader.loadAsScene("GameOver")
-        var transition = CCTransition(moveInWithDirection: .Down, duration: 0.5)
-        CCDirector.sharedDirector().presentScene(gameOverScene, withTransition: transition)
+        self.animationManager.runAnimationsForSequenceNamed("GameOver")
+        
+//        var gameOverScene = CCBReader.loadAsScene("GameOver")
+//        var transition = CCTransition(moveInWithDirection: .Down, duration: 0.5)
+//        CCDirector.sharedDirector().presentScene(gameOverScene, withTransition: transition)
+    }
+    
+    func restart() {
+        let gameplayScene = CCBReader.loadAsScene("Gameplay")
+        CCDirector.sharedDirector().presentScene(gameplayScene)
     }
     
     override func update(delta: CCTime) {

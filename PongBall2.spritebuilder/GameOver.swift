@@ -17,8 +17,4 @@ class GameOver: CCNode {
         }
     }
     
-    func restart() {
-        let gameplayScene = CCBReader.loadAsScene("Gameplay")
-        CCDirector.sharedDirector().presentScene(gameplayScene)
     }
-}
