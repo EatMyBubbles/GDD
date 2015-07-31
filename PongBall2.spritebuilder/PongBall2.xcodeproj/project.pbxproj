@@ -43,7 +43,6 @@
 		7A97910819E62F84001FFC4D /* libcocos2dAndroid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A97910019E62E40001FFC4D /* libcocos2dAndroid.a */; };
 		7A97911719E631C6001FFC4D /* libcocos2d-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A97910419E62E40001FFC4D /* libcocos2d-mac.a */; };
 		7A97911819E631CD001FFC4D /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9790FE19E62E40001FFC4D /* libcocos2d.a */; };
-		830323D81B6A7E2C002EE4A0 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830323D71B6A7E2C002EE4A0 /* GameOver.swift */; };
 		8327B0DC1B6130C900E9A024 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8327B0DB1B6130C900E9A024 /* GameScene.swift */; };
 		8364D2981B559D10006F454C /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8364D2971B559D10006F454C /* Ball.swift */; };
 		836DE4901B66ADE500B5B941 /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DE48F1B66ADE500B5B941 /* Coin.swift */; };
@@ -176,7 +175,6 @@
 		7AFCD5DB19E9BD9F00BCCCDA /* cocos2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocos2d.h; path = "Source/libs/cocos2d-iphone/cocos2d/cocos2d.h"; sourceTree = "<group>"; };
 		7AFCD5DD19E9BDC200BCCCDA /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Source/Bridging-Header.h"; sourceTree = "<group>"; };
 		7BF6AF9F1A425F9800FFF9BA /* JavaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaFoundation.framework; path = "../../../../../../../Library/SBAndroid/Application Support/Developer/Shared/Xcode/Platforms/Android.platform/Developer/SDKs/SBAndroid.sdk/System/Library/Frameworks/JavaFoundation.framework"; sourceTree = "<group>"; };
-		830323D71B6A7E2C002EE4A0 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		8327B0DB1B6130C900E9A024 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		8364D2971B559D10006F454C /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		836DE48F1B66ADE500B5B941 /* Coin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
@@ -447,7 +445,6 @@
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				7A046D7519E84C36004C4763 /* MainScene.swift */,
 				8327B0DB1B6130C900E9A024 /* GameScene.swift */,
-				830323D71B6A7E2C002EE4A0 /* GameOver.swift */,
 				D50313BA1B56F1C9004031D1 /* Paddle.swift */,
 				8364D2971B559D10006F454C /* Ball.swift */,
 				836DE48F1B66ADE500B5B941 /* Coin.swift */,
@@ -835,7 +832,6 @@
 				836DE4901B66ADE500B5B941 /* Coin.swift in Sources */,
 				7A046D7919E84ED5004C4763 /* MainScene.swift in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
-				830323D81B6A7E2C002EE4A0 /* GameOver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

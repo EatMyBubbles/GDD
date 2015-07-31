@@ -17,6 +17,9 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     weak var restartButton: CCButton!
     weak var scoreLabel: CCLabelTTF!
     weak var scoreLabel2: CCLabelTTF!
+    weak var coinLabel: CCLabelTTF!
+    weak var coinLabel2: CCLabelTTF!
+    weak var bestLabel: CCLabelTTF!
     
     var width = CCDirector.sharedDirector().viewSize().width
     var gameOver: Bool = false
@@ -27,6 +30,12 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
             scoreLabel2.string = "\(score)"
         }
     }
+    var money: Int = 0 {
+        didSet {
+            coinLabel.string = "\(money)"
+            coinLabel2.string = "\(money)"
+        }
+    }
     
     
     func didLoadFromCCB() {
@@ -35,8 +44,6 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         gamePhysicsNode.collisionDelegate = self
         
         self.animationManager.runAnimationsForSequenceNamed("Countdown")
-        
-        println(width)
         
 //        delay(3) { // always use "self." when using delay
 //            self.schedule("spawnCoin", interval: 2.5)
@@ -102,6 +109,7 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, coin: CCNode!, ball: CCNode!) -> ObjCBool {
         
         coin.removeFromParent()
+        money++
         
         return false
     }
@@ -111,6 +119,17 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         gameOver = true
         
         self.animationManager.runAnimationsForSequenceNamed("GameOver")
+        
+        //highscore code
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var highscore = defaults.integerForKey("highscore")
+        if score > highscore {
+            defaults.setInteger(score, forKey: "highscore")
+        }
+        
+        //set highscore
+        var newHighscore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
+        bestLabel.string = "\(newHighscore)"
         
 //        var gameOverScene = CCBReader.loadAsScene("GameOver")
 //        var transition = CCTransition(moveInWithDirection: .Down, duration: 0.5)
