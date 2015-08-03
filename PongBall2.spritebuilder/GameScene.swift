@@ -23,27 +23,33 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     
     var width = CCDirector.sharedDirector().viewSize().width
     var gameOver: Bool = false
-    var wantSpawn: Bool = true
     var score: Int = 0 {
         didSet {
             scoreLabel.string = "\(score)"
             scoreLabel2.string = "\(score)"
         }
     }
-    var money: Int = 0 {
+    var money: Int = 0 { //total amount of coins
         didSet {
-            coinLabel.string = "\(money)"
             coinLabel2.string = "\(money)"
+        }
+    }
+    var moneyGameScene: Int = 0 { //coin label in the gamescene
+        didSet {
+            coinLabel.string = "\(moneyGameScene)"
         }
     }
     
     
     func didLoadFromCCB() {
+        money = NSUserDefaults.standardUserDefaults().integerForKey("money")
+
         multipleTouchEnabled = true
         userInteractionEnabled = true
         gamePhysicsNode.collisionDelegate = self
         
         self.animationManager.runAnimationsForSequenceNamed("Countdown")
+        ball.physicsBody.elasticity = 1.3
         
 //        delay(3) { // always use "self." when using delay
 //            self.schedule("spawnCoin", interval: 2.5)
@@ -75,16 +81,13 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     }
     
     func spawnCoin() {                                                  //spawnCoin method
-        if wantSpawn == true {
-            var spawnX = ((((arc4random() % 17) + 1) * 20) + 104)
-            var spawnY = ((((arc4random() % 10) + 1) * 25) + 25)
-            var coin = CCBReader.load("Coin") as! Coin
-            coin.position = ccp(CGFloat(spawnX), CGFloat(spawnY))
-            coin.scale = Float(0.2)
-            gamePhysicsNode.addChild(coin)
+        var spawnX = ((((arc4random() % 17) + 1) * 20) + 104)
+        var spawnY = ((((arc4random() % 10) + 1) * 25) + 25)
+        var coin = CCBReader.load("Coin") as! Coin
+        coin.position = ccp(CGFloat(spawnX), CGFloat(spawnY))
+        coin.scale = Float(0.2)
+        gamePhysicsNode.addChild(coin)
             //        println(coin.position)
-
-        }
     }
     
     func spawnCoinInterval() {
@@ -93,15 +96,16 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, ball nodeA: CCNode!, paddle nodeB: CCNode!) -> ObjCBool {
         
-        if ball.physicsBody.elasticity < 1.1 && ball.physicsBody.velocity.x < 950 && ball.physicsBody.velocity.x > -950 {
+        if ball.physicsBody.elasticity > 1.05 && ball.physicsBody.velocity.x < 950 && ball.physicsBody.velocity.x > -950 {
+            ball.physicsBody.elasticity -= 0.05
+        } else if ball.physicsBody.elasticity == 1.05 {
             ball.physicsBody.elasticity += 0.1
-        } else if ball.physicsBody.elasticity == 1.1 {
-            ball.physicsBody.elasticity -= 0.1
         }
         
         score++
         
-//        println(ball.physicsBody.velocity)
+        println(ball.physicsBody.elasticity)
+        println(ball.physicsBody.velocity)
         
         return true
     }
@@ -110,6 +114,9 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         
         coin.removeFromParent()
         money++
+        NSUserDefaults.standardUserDefaults().setInteger(money, forKey: "money")
+        
+        moneyGameScene++
         
         return false
     }
@@ -117,6 +124,9 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     func GameOver() {
         println("GameOver")
         gameOver = true
+        
+        // stops coin spawn method
+        unschedule("spawnCoin")
         
         self.animationManager.runAnimationsForSequenceNamed("GameOver")
         
@@ -173,6 +183,7 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         var touchX = touch.locationInNode(CCPhysicsNode()!).x
         
         if touchX > width/2 {
+            
             rightPaddle.positionInPoints.y = touchY
         }
         else {
