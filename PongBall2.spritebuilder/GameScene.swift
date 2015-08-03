@@ -22,6 +22,7 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
     weak var bestLabel: CCLabelTTF!
     
     var width = CCDirector.sharedDirector().viewSize().width
+    var height = CCDirector.sharedDirector().viewSize().height
     var gameOver: Bool = false
     var score: Int = 0 {
         didSet {
@@ -158,6 +159,13 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         }
         else if ball.position.x < 0 && gameOver == false {
             GameOver()
+        }
+        
+        if ball.position.y > 1 {
+            println("fault")
+        }
+        else if ball.position.y < 0 {
+            println("fault")
         }
         
         let velocityX = clampf(Float(ball.physicsBody.velocity.x), -Float(CGFloat.max),950)
