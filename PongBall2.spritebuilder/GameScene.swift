@@ -152,6 +152,11 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
         CCDirector.sharedDirector().presentScene(gameplayScene)
     }
     
+    func fault() {
+        ball.positionInPoints = CGPoint (x: width/2, y: height/2)
+        self.animationManager.runAnimationsForSequenceNamed("Fault")
+    }
+    
     override func update(delta: CCTime) {
         
         if ball.position.x > 1 && gameOver == false {
@@ -161,11 +166,20 @@ class GameScene: CCNode, CCPhysicsCollisionDelegate {
             GameOver()
         }
         
-        if ball.position.y > 1 {
-            println("fault")
+        if ball.position.y > 1 && ball.position.x < 1 && ball.position.x > 0 {
+            fault()
         }
-        else if ball.position.y < 0 {
-            println("fault")
+        else if ball.position.y < 0 && ball.position.x < 1 && ball.position.x > 0 {
+            fault()
+        }
+        
+        if abs(ball.physicsBody.velocity.x) < 150 && ball.physicsBody.velocity.x > 0 {
+            ball.physicsBody.applyImpulse(ccp (200, 0))
+            println("ocelot")
+        }
+        else if abs(ball.physicsBody.velocity.x) < 150 && ball.physicsBody.velocity.x < 0 {
+            ball.physicsBody.applyImpulse(ccp (-200, 0))
+            println("ocelot")
         }
         
         let velocityX = clampf(Float(ball.physicsBody.velocity.x), -Float(CGFloat.max),950)
